@@ -1,0 +1,29 @@
+{
+  "source": {
+    "include": [
+      "client/src",
+      "comments",
+      "event-bus",
+      "moderation",
+      "posts",
+      "query"
+    ],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(node_modules/|docs)_"
+  },
+  "plugins": ["plugins/markdown"],
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true
+  },
+  "opts": {
+    "recurse": true,
+    "destination": "./docs/",
+    "tutorials": "./tutorials",
+    "readme": "./README.md"
+  }
+}

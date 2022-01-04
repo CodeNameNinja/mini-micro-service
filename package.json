@@ -1,0 +1,22 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "doc": "jsdoc -c jsdoc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeNameNinja/mini-micro-service.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeNameNinja/mini-micro-service/issues"
+  },
+  "homepage": "https://github.com/CodeNameNinja/mini-micro-service#readme",
+  "devDependencies": {
+    "jsdoc": "^3.6.7"
+  }
+}
