@@ -1,12 +1,7 @@
 {
   "source": {
     "include": [
-      "client/src",
-      "comments",
-      "event-bus",
-      "moderation",
-      "posts",
-      "query"
+      "client/src"
     ],
     "includePattern": ".+\\.js(doc|x)?$",
     "excludePattern": "(node_modules/|docs)_"

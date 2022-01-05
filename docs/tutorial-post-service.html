@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: Project Setup</title>
+    <title>JSDoc: Tutorial: Post Service</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,41 +17,29 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: Project Setup</h1>
+    <h1 class="page-title">Tutorial: Post Service</h1>
 
     <section>
 
 <header>
     
 
-    <h2>Project Setup</h2>
+    <h2>Post Service</h2>
 </header>
 
 <article>
-    <p><img src="../../doc_assets/screenshots/project-setup/06.png" alt="Project setup"></p>
-<h3>Create Client</h3>
-<p>Create a Directory called <code>Blog</code> and inside it create a react-app with <code>create-react-app</code> and call it <code>client</code>.
-<br /></p>
-<pre class="prettyprint source lang-bash"><code>mkdir blog
-cd blog
-npx create-react-app client
-</code></pre>
-<h3>Create Post Service</h3>
-<p>and then also make a <code>post</code> service in the <code>blog</code> directory.
-<br /></p>
-<pre class="prettyprint source lang-bash"><code>cd..
-mkdir posts
-cd posts
-npm init -y
-npm i express cors axios nodemon
-</code></pre>
-<h3>Create Comment Service</h3>
-<pre class="prettyprint source lang-bash"><code>cd..
-mkdir comments
-cd comments
-npm init -y
-npm i express cors axios nodemon
-</code></pre>
+    <p><img src="../../doc_assets/screenshots/project-setup/post-service.png" alt="Post Service"></p>
+<p>I think that we need to have a single route that's going to be in charge of retrieving all the different
+posts that have ever been created.</p>
+<p>I think we also need one distinct route that has me in charge of creating a brand new post.</p>
+<p>So we're going to have one route of posts.
+If we make a get request to it, we'll get all of our posts.
+We'll have another one of the posts if we make it post to it with somebody that has a title that it
+is a string, we're going to create a new post.</p>
+<p>So that's what we're going to use as our guide for implementing our post service.
+Let's open up our code editor inside the Post project directory.
+Right now, we're going to start to build out a very small express application that's going to implement
+these two routes.</p>
 </article>
 
 </section>

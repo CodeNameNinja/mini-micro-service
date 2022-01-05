@@ -1,3 +1,13 @@
 {
-  
+  "index": {
+    "title": "A Mini Microservice App",
+    "children": {
+      "Project-Setup": {
+        "title": "Project Setup"
+      },
+      "post-service": {
+        "title": "Post Service"
+      }
+    }
+  }
 }

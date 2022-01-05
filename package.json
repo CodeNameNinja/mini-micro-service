@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "doc": "jsdoc -c jsdoc.json"
+    "doc": "jsdoc -c jsdoc.json",
+    "build:docs": "jsdoc -c jsdoc.json",
+    "watch:doc-src": "npx nodemon --exec 'npm run build:docs' --watch tutorials",
+    "watch:doc-output": "npx livereload out",
+    "watch:docs": "(npm run watch:doc-src & npm run watch:doc-output)"
   },
   "repository": {
     "type": "git",
@@ -17,6 +21,8 @@
   },
   "homepage": "https://github.com/CodeNameNinja/mini-micro-service#readme",
   "devDependencies": {
-    "jsdoc": "^3.6.7"
+    "jsdoc": "^3.6.7",
+    "livereload": "^0.9.3",
+    "nodemon": "^2.0.15"
   }
 }
