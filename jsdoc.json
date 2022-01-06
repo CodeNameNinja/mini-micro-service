@@ -1,10 +1,8 @@
 {
   "source": {
-    "include": [
-      "client/src"
-    ],
+    "include": ["posts", "client/src"],
     "includePattern": ".+\\.js(doc|x)?$",
-    "excludePattern": "(node_modules/|docs)_"
+    "excludePattern": "(node_modules)"
   },
   "plugins": ["plugins/markdown"],
   "tags": {
