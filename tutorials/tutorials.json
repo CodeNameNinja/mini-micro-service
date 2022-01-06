@@ -7,6 +7,9 @@
       },
       "post-service": {
         "title": "Post Service"
+      },
+      "comments-service": {
+        "title": "Comment Service"
       }
     }
   }

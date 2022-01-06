@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: posts/index.js</title>
+    <title>JSDoc: Source: comments/index.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: posts/index.js</h1>
+    <h1 class="page-title">Source: comments/index.js</h1>
 
     
 
@@ -27,7 +27,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** Express router providing user related routes
- * @module routers/posts
+ * @module routers/:id/comments
  * @requires express
  */
 
@@ -53,49 +53,56 @@ const bodyParser = require("body-parser");
  * application
  * @type {object}
  * @const
- * @namespace PostApiRequests
+ * @namespace CommentApiRequest
  */
 const app = express();
 app.use(bodyParser.json());
 
-const posts = {};
 /**
- * Route fetching posts.
- * @name get/posts
+ * comments object
+ * @const
+ */
+const commentsByPostId = {};
+/**
+ * Fetch all comments associated with the given post ID
+ * @name get/posts:id/comment
  * @function
- * @memberof module:routers/posts~PostApiRequests
+ * @memberof module:routers/:id/comments~CommentApiRequest
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
  */
-app.get("/posts", (req, res) => {
-  res.send(posts);
+app.get("/posts/:id/comments", (req, res) => {
+  res.send(commentsByPostId[req.params.id] || []);
 });
+
 /**
- * Route posting posts.
- * @name post/posts
+ * Create a comment assiociated with the given post ID
+ * @name post/posts/:id/comment
  * @function
- * @memberof module:routers/posts~PostApiRequests
+ * @memberof module:routers/:id/comments~CommentApiRequest
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
  */
-app.post("/posts", (req, res) => {
+app.post("/posts/:id/comments", (req, res) => {
+  // create a comment assiociated with the given post ID
   // Generate random id
   const id = randomBytes(4).toString("hex");
-  // Create post object
-  const post = {
+  // Create comment object
+  const comment = {
     id,
     ...req.body,
   };
-  // Add post to posts object
-  posts[id] = post;
-  // Send response
-  res.status(201).send(posts[id]);
+  // Add comment to comments object
+  const comments = commentsByPostId[req.params.id] || [];
+  comments.push(comment);
+  commentsByPostId[req.params.id] = comments;
+  res.status(201).send(comments);
 });
 
-app.listen(4000, () => {
-  console.log("Listening on 4000");
+app.listen(4001, () => {
+  console.log("Listening on 4001");
 });
 </code></pre>
         </article>

@@ -25,7 +25,7 @@ const bodyParser = require("body-parser");
  * application
  * @type {object}
  * @const
- * @namespace ApiRequest
+ * @namespace PostApiRequests
  */
 const app = express();
 app.use(bodyParser.json());
@@ -35,7 +35,7 @@ const posts = {};
  * Route fetching posts.
  * @name get/posts
  * @function
- * @memberof module:routers/posts~ApiRequest
+ * @memberof module:routers/posts~PostApiRequests
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
@@ -47,7 +47,7 @@ app.get("/posts", (req, res) => {
  * Route posting posts.
  * @name post/posts
  * @function
- * @memberof module:routers/posts~ApiRequest
+ * @memberof module:routers/posts~PostApiRequests
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
