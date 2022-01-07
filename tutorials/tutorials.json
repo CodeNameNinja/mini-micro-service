@@ -10,6 +10,9 @@
       },
       "comments-service": {
         "title": "Comment Service"
+      },
+      "React-Setup": {
+        "title": "React Setup"
       }
     }
   }

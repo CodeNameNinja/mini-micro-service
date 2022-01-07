@@ -1,0 +1,1 @@
+![React Setup](../../doc_assets/screenshots/project-setup/React_Project_Setup.png);

@@ -22,13 +22,21 @@ const { randomBytes } = require("crypto");
 const bodyParser = require("body-parser");
 
 /**
+ * cors module
+ * @const
+ */
+const cors = require("cors");
+
+/**
  * application
  * @type {object}
  * @const
  * @namespace PostApiRequests
  */
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
+
 
 const posts = {};
 /**
