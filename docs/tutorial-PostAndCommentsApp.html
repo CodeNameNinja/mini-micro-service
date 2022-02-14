@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Tutorial: Post and Comment App</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Tutorial: Post and Comment App</h1>
+
+    <section>
+
+<header>
+    
+
+    <h2>Post and Comment App</h2>
+</header>
+
+<article>
+    <h3>Let's scaffold a Post and Comments App.</h3>
+<p>Post and Comments App is a simple app that allows users to create posts and comments.</p>
+<h4>PostCreate and PostList</h4>
+<p>PostCreate
+Post to our posts service and create a post</p>
+<pre class="prettyprint source lang-js"><code>import React, { useState } from &quot;react&quot;;
+import axios from &quot;axios&quot;;
+
+const PostCreate = () => {
+  const [title, setTitle] = useState(&quot;&quot;);
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    await axios.post(&quot;http://localhost:4000/posts&quot;, {
+      title: title,
+    });
+
+    setTitle(&quot;&quot;);
+  };
+  return (
+    &lt;div>
+      &lt;form onSubmit={onSubmit}>
+        &lt;div className=&quot;form-group&quot;>
+          &lt;label>Title&lt;/label>
+          &lt;input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            type=&quot;text&quot;
+            className=&quot;form-control&quot;
+          />
+        &lt;/div>
+        &lt;button className=&quot;btn btn-primary&quot;>Submit&lt;/button>
+      &lt;/form>
+    &lt;/div>
+  );
+};
+
+export default PostCreate;
+</code></pre>
+<p>PostList
+Responsible for fetching posts from the posts service and rendering them in a list</p>
+<pre class="prettyprint source lang-js"><code>import React, { useState, useEffect } from &quot;react&quot;;
+import axios from &quot;axios&quot;;
+import CommentCreate from &quot;./CommentCreate&quot;;
+import CommentList from &quot;./CommentList&quot;;
+const PostList = () => {
+  const [posts, setPosts] = useState({});
+  const fetchPosts = async () => {
+    const res = await axios.get(&quot;http://localhost:4000/posts&quot;);
+
+    setPosts(res.data);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const renderPosts = Object.values(posts).map((post) => {
+    return (
+      &lt;div
+        key={post.id}
+        className=&quot;card&quot;
+        style={{ width: &quot; 30%&quot;, marginBottom: &quot;20px&quot; }}
+      >
+        &lt;div className=&quot;card-body&quot;>
+          &lt;h3>{post.title}&lt;/h3>
+          &lt;CommentCreate postId={post.id} />
+          &lt;CommentList postId={post.id} />
+        &lt;/div>
+      &lt;/div>
+    );
+  });
+  return (
+    &lt;div className=&quot;d-flex flex-row flex-wrap justify-content-between&quot;>
+      {renderPosts}
+    &lt;/div>
+  );
+};
+
+export default PostList;
+</code></pre>
+<h4>CommentCreate and CommentList</h4>
+<p>CommentCreate
+Responsible for creating comments by postId</p>
+<pre class="prettyprint source lang-js"><code>import React, { useState } from &quot;react&quot;;
+import axios from &quot;axios&quot;;
+const CommentCreate = ({ postId }) => {
+  const [content, setContent] = useState(&quot;&quot;);
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+      content,
+    });
+    setContent(&quot;&quot;);
+  };
+  return (
+    &lt;div>
+      &lt;form onSubmit={onSubmit}>
+        &lt;div className=&quot;form-group&quot;>
+          &lt;label htmlFor=&quot;comment&quot;>New Comment&lt;/label>
+          &lt;input
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            type=&quot;text&quot;
+            className=&quot;form-control&quot;
+            name=&quot;comment&quot;
+          />
+        &lt;/div>
+        &lt;button className=&quot;btn btn-primary&quot;>Submit&lt;/button>
+      &lt;/form>
+    &lt;/div>
+  );
+};
+
+export default CommentCreate;
+</code></pre>
+<p>CommentList
+Responsible for fetching comments by postId</p>
+<pre class="prettyprint source lang-js"><code>import React, { useState, useEffect } from &quot;react&quot;;
+import axios from &quot;axios&quot;;
+
+const CommentList = ({ postId }) => {
+  //fetch comments from post
+  const [comments, setComments] = useState([]);
+  const fetchComments = async () => {
+    const res = await axios.get(
+      `http://localhost:4001/posts/${postId}/comments`
+    );
+    setComments(res.data);
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  //render comments
+  const renderComments = comments.map((comment) => {
+    return &lt;li key={comment.id}>{comment.content}&lt;/li>;
+  });
+
+  return &lt;ul>{renderComments}&lt;/ul>;
+};
+
+export default CommentList;
+</code></pre>
+<h3>App.js</h3>
+<p>Okay great, we have completed the basic layout of our Posts &amp; comments logic, now lets stitch them together in our App.js file</p>
+<pre class="prettyprint source lang-js"><code>import React from &quot;react&quot;;
+import PostCreate from &quot;./PostCreate&quot;;
+import PostList from &quot;./PostList&quot;;
+const App = () => {
+  return (
+    &lt;div className=&quot;container&quot;>
+      &lt;h1>Create Post&lt;/h1>
+      &lt;PostCreate />
+      &lt;hr />
+      &lt;h1>Posts&lt;/h1>
+      &lt;PostList />
+    &lt;/div>
+  );
+};
+
+export default App;
+
+
+</code></pre>
+<h4>Finish App</h4>
+<p><img src="../../doc_assets/screenshots/project-setup/finishReactApp.png" alt="Finish React App"></p>
+<p>Notice how we send a seperate request for each comment that we have stored.</p>
+<p>This is the topic of our next discussion</p>
+</article>
+
+</section>
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-routers__id_comments.html">routers/:id/comments</a></li><li><a href="module-routers_posts.html">routers/posts</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routers__id_comments-CommentApiRequest.html">CommentApiRequest</a></li><li><a href="module-routers_posts-PostApiRequests.html">PostApiRequests</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-index_.html">A Mini Microservice App</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jan 15 2022 11:06:52 GMT+0200 (South Africa Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
