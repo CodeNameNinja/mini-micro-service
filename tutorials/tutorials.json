@@ -16,6 +16,9 @@
       },
       "PostAndCommentsApp": {
         "title": "Post and Comment App"
+      },
+      "AsyncCommunication": {
+        "title": "Async Communication"
       }
     }
   }

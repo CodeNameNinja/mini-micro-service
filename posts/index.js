@@ -28,6 +28,12 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 /**
+ * axios module
+ * @const
+ */
+const axios = require("axios");
+
+/**
  * application
  * @type {object}
  * @const
@@ -36,7 +42,6 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
 
 const posts = {};
 /**
@@ -60,7 +65,7 @@ app.get("/posts", (req, res) => {
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
  */
-app.post("/posts", (req, res) => {
+app.post("/posts", async (req, res) => {
   // Generate random id
   const id = randomBytes(4).toString("hex");
   // Create post object
@@ -70,6 +75,12 @@ app.post("/posts", (req, res) => {
   };
   // Add post to posts object
   posts[id] = post;
+
+  // Send post request to /events
+  await axios.post("http://localhost:4005/events", {
+    type: "PostCreated",
+    data: { id, ...post },
+  });
   // Send response
   res.status(201).send(posts[id]);
 });

@@ -26,6 +26,12 @@ const bodyParser = require("body-parser");
  * @const
  */
 const cors = require("cors");
+
+/**
+ * axios module
+ * @const
+ */
+const axios = require("axios");
 /**
  * application
  * @type {object}
@@ -76,6 +82,18 @@ app.post("/posts/:id/comments", (req, res) => {
   const comments = commentsByPostId[req.params.id] || [];
   comments.push(comment);
   commentsByPostId[req.params.id] = comments;
+
+  // Send comment to event bus
+  axios
+    .post("http://localhost:4005/events", {
+      type: "CommentCreated",
+      data: {
+        id,
+        ...comment,
+        postId: req.params.id,
+      },
+    })
+    .catch((err) => console.log(err));
   res.status(201).send(comments);
 });
 
