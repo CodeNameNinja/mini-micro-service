@@ -1,6 +1,6 @@
 {
   "source": {
-    "include": ["posts", "comments", "client/src"],
+    "include": ["posts", "comments", "client/src", "event-bus", "query"],
     "includePattern": ".+\\.js(doc|x)?$",
     "excludePattern": "(node_modules)"
   },

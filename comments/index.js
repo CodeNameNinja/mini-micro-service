@@ -49,7 +49,7 @@ app.use(bodyParser.json());
 const commentsByPostId = {};
 /**
  * Fetch all comments associated with the given post ID
- * @name get/posts:id/comment
+ * @name get/posts/:id/comment
  * @function
  * @memberof module:routers/:id/comments~CommentApiRequest
  * @inner
@@ -93,10 +93,14 @@ app.post("/posts/:id/comments", (req, res) => {
         postId: req.params.id,
       },
     })
-    .catch((err) => console.log(err));
   res.status(201).send(comments);
 });
 
-app.listen(4001, () => {
+ app.post("/events", (req, res) => {
+  console.log("Event Recieved", req.body.type)
+  res.send({})
+});
+
+app.listen(4001, () => {                                               
   console.log("Listening on 4001");
 });

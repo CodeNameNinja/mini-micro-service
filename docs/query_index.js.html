@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: React Setup</title>
+    <title>JSDoc: Source: query/index.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,21 +17,82 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: React Setup</h1>
+    <h1 class="page-title">Source: query/index.js</h1>
 
-    <section>
-
-<header>
     
 
-    <h2>React Setup</h2>
-</header>
 
-<article>
-    <p><img src="../../doc_assets/screenshots/project-setup/React_Project_Setup.png" alt="React Setup">;</p>
-</article>
 
-</section>
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** Express router providing user related routes
+ * @module routers/query
+ * @requires express
+ */
+
+/**
+ * express module
+ * @const
+ */
+const express = require("express");
+/**
+ * body parser module
+ * @const
+ */
+const bodyParser = require("body-parser");
+/**
+ * cors module
+ * @const
+ */
+const cors = require("cors");
+
+/**
+ * application
+ * @type {object}
+ * @const
+ * @namespace QueryApiRequest
+ */
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+
+/**
+ * posts object
+ * @const
+ */
+ const posts = {};
+
+/**
+ * Route fetching posts.
+ * @name get/posts
+ * @function
+ * @memberof module:routers/query~QueryApiRequest
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware.
+ */
+app.get("post", (req, res) => {});
+
+/**
+ * Route fetching posts.
+ * @name post/events
+ * @function
+ * @memberof module:routers/query~QueryApiRequest
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware.
+ */
+app.post("/events", (req, res) => {});
+
+app.listen(4002, () => console.log("Listening on 4002"));
+</code></pre>
+        </article>
+    </section>
+
+
+
 
 </div>
 
