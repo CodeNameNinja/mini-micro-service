@@ -13,6 +13,11 @@
   * @const
   */
  const bodyParser = require("body-parser");
+ /**
+  * axios module
+  * @const
+  */
+ const axios = require("axios");
  
  /**
   * application
@@ -34,8 +39,23 @@
   * @param {string} path - Express path
   * @param {callback} middleware - Express middleware.
   */
- app.post("/events", (req, res) => {
+ app.post("/events", async (req, res) => {
+    const {type,data} = req.body;
+    if(type === 'CommentCreated'){
+      const status = data.content.includes('orange') ? 'rejected' : 'approved';
 
+      await axios.post('http://localhost:4005/events', {
+        type: 'CommentModerated',
+        data: {
+          id: data.id,
+          postId: data.postId,
+          status,
+          content: data.content
+        }
+      })
+    }
+
+    res.send({})
  });
  
  
