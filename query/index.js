@@ -45,7 +45,7 @@ const posts = {};
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
  */
-app.get("post", (req, res) => {
+app.get("/posts", (req, res) => {
   res.send(posts)
 });
 
