@@ -32,5 +32,13 @@
         "title": "Docker Commands"
       }
     }
+  },
+  "index-kubernetes":{
+    "title": "Kubernetes",
+    "children": {
+      "KubernetesTour": {
+        "title": "Kubernetes Tour"
+      }
+    }
   }
 }
