@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: Post Service</title>
+    <title>JSDoc: Tutorial: DockerSetup</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,38 +17,37 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: Post Service</h1>
+    <h1 class="page-title">Tutorial: DockerSetup</h1>
 
     <section>
 
 <header>
     
 
-    <h2>Post Service</h2>
+    <h2>DockerSetup</h2>
 </header>
 
 <article>
-    <p><img src="../../doc_assets/screenshots/project-setup/post-service.png" alt="Post Service"></p>
-<p>I think that we need to have a single route that's going to be in charge of retrieving all the different
-posts that have ever been created.</p>
-<p>I think we also need one distinct route that has me in charge of creating a brand new post.</p>
-<p>So we're going to have one route of posts.
-If we make a get request to it, we'll get all of our posts.
-We'll have another one of the posts if we make it post to it with somebody that has a title that it
-is a string, we're going to create a new post.</p>
-<p>So that's what we're going to use as our guide for implementing our post service.
-Let's open up our code editor inside the Post project directory.
-Right now, we're going to start to build out a very small express application that's going to implement
-these two routes.</p>
-<p><a href="module-routers_posts.html">Link to docs</a></p>
-<h3>Testing Posts Services</h3>
-<h4>Send A Post</h4>
-<p><img src="../../doc_assets/screenshots/project-setup/POST_posts.png" alt="Send A Post"></p>
-<h4>Fetch posts</h4>
-<p><img src="../../doc_assets/screenshots/project-setup/GET_posts.png" alt="Fetch posts"></p>
-<blockquote>
-<p>! take note these posts are not persistant and are stored in memory</p>
-</blockquote>
+    <h2>Setup</h2>
+<p>We are going to start by creating a <code>Dockerfile</code> in the root directory of our <code>Posts</code> Service.</p>
+<p><img src="../../doc_assets/screenshots/Docker/Dockerfile.png" alt="Dockerfile"></p>
+<h3>Dockerfile</h3>
+<p>Specify Base Image</p>
+<pre class="prettyprint source lang-Dockerfile"><code>FROM node:alpine
+
+WORKDIR /app
+COPY package.json ./
+RUN npm install
+COPY ./ ./
+
+CMD [&quot;npm&quot;, &quot;start&quot;]
+</code></pre>
+<p>Now, one other thing we're going to do really quickly, we usually don't want to include any install dependencies that are on our local machine.</p>
+<p>So in our case, that would be the node modules folder in order to make sure that we don't send all
+those dependencies over during the image building process.</p>
+<p>We're going to create a file inside this post directory.
+Called .dockerignore, and we're going to add the following line:
+<code>node_modules</code></p>
 </article>
 
 </section>
