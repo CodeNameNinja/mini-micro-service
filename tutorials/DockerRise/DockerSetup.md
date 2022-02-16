@@ -29,3 +29,21 @@ We're going to create a file inside this post directory.
 Called `.dockerignore`, and we're going to add the following line:
 `node_modules`
 
+### build docker image  
+
+```bash
+cd ./posts
+
+docker build .
+```
+
+You should see a new image being created.
+and the image key
+
+![image key](../../doc_assets/screenshots/Docker/image-built.png)
+
+## Run container with image
+
+`docker run a7c072ecdd734023ff7b2e4a8711c756564d4174e69a3d9c28158544adb951fb`
+
+![container running](../../doc_assets/screenshots/Docker/container%20running.png)
