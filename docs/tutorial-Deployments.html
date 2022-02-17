@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: Kubernetes Tour</title>
+    <title>JSDoc: Tutorial: Deployments</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,26 +17,39 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: Kubernetes Tour</h1>
+    <h1 class="page-title">Tutorial: Deployments</h1>
 
     <section>
 
 <header>
     
 
-    <h2>Kubernetes Tour</h2>
+    <h2>Deployments</h2>
 </header>
 
 <article>
-    <h2>Kubernetes Tour</h2>
-<p>In a new terminal run</p>
-<pre class="prettyprint source lang-bash"><code>kubectl version
+    <p>Firstly we want to remove our <code>posts.yml</code> file and start fresh with a new file called <code>posts-depl.yml</code></p>
+<p>and in this config we are going to configure deployment, and in this config we are going to spec how many pods we want to run and point it to our posts image</p>
+<pre class="prettyprint source lang-yml"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posts
+  template:
+    metadata:
+      labels:
+        app: posts
+    spec:
+      containers:
+      - name: posts
+        image: codenameninja/posts:0.0.1
 </code></pre>
-<p><img src="../../doc_assets/screenshots/Docker/kubectl-version.png" alt="kube version"></p>
-<h3>Terminology</h3>
-<p><img src="../../doc_assets/screenshots/Docker/Kubenetes-Terminology.png" alt="Kubenetes-Terminology"></p>
-<h3>Kubernetes Config Files</h3>
-<p><img src="../../doc_assets/screenshots/Docker/kubernetes-config.png" alt="Kubenetes Config"></p>
+<h3>Kubernetes Deployment Commands</h3>
+<p><img src="../../doc_assets/screenshots/Docker/kubectl-deployments.png" alt="kubectl-deployment"></p>
 </article>
 
 </section>

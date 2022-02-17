@@ -44,6 +44,12 @@
       },
       "AssigningAnAlias": {
         "title": "Assigning an Alias"
+      },
+      "Deployments": {
+        "title": "Deployments"
+      },
+      "UpdatingDeployments": {
+        "title": "Updating Deployments"
       }
     }
   }

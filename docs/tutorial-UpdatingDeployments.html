@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Tutorial: Updating Deployments</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Tutorial: Updating Deployments</h1>
+
+    <section>
+
+<header>
+    
+
+    <h2>Updating Deployments</h2>
+</header>
+
+<article>
+    <p><img src="../../doc_assets/screenshots/Docker/updating-deployments.png" alt="updating-deployments"></p>
+<p>Firstly let's start by making a change to our <code>Posts</code> Application. This</p>
+<p>Navigate to <code>index.js</code> in our <code>Posts</code> Folder, and add another <code>console.log()</code> inside the call when our app starts serving.</p>
+<pre class="prettyprint source lang-js"><code>app.listen(4000, () => {
+  console.log(&quot;v.0.0.2&quot;);
+  console.log(&quot;Listening on 4000&quot;);
+});
+</code></pre>
+<p>Now let's go back to our <code>terminal</code> and navigate to our <code>posts</code> project and <em>rebuild</em> our <em>docker</em> image, but this time with a new tag.</p>
+<p><code>docker build -t codenameninja/posts:0.0.2 .</code></p>
+<h4>Update Deployment Config File</h4>
+<pre class="prettyprint source lang-yml"><code>spec:
+  containers:
+    - name: posts
+      image: codenameninja/posts:0.0.2
+</code></pre>
+<p>Next we need to tell Kubernetes that our config file has changed, by trying to apply the config file again.</p>
+<p>So let's go to our <code>/infra/k8s</code> directory and run the following command:</p>
+<pre class="prettyprint source lang-bash"><code>k apply -f posts-depl.yml
+
+</code></pre>
+<p>You should see an output like this:</p>
+<pre class="prettyprint source lang-bash"><code>
+C:\Users\mwhyu\Documents\Learning\Microservices\blog\infra\k8s>k apply -f posts-depl.yml
+deployment.apps/posts-depl configured
+
+</code></pre>
+<p>notice how it says <em>configured</em> instead of <em>created</em></p>
+<h2>Preferred Method of Updating Deployments</h2>
+<p><img src="../../doc_assets/screenshots/Docker/updating-deployments-2.png" alt="updating-deployments-2"></p>
+<p>let's change our config file again, but this time remove the tag number, and instead use the <code>latest</code> tag, or we can just not specify a tag and Kubernetes will automatically assume we are using the latest version of the image.</p>
+<pre class="prettyprint source lang-yml"><code>spec:
+  containers:
+    - name: posts
+      image: codenameninja/posts
+</code></pre>
+<p>next let's apply the config again.</p>
+<p>Now let's make another change to our <code>index.js</code></p>
+<pre class="prettyprint source lang-js"><code>app.listen(4000, () => {
+  console.log(&quot;v.0.2.5&quot;);
+  console.log(&quot;Listening on 4000&quot;);
+});
+
+</code></pre>
+<p>Now rebuild the <code>posts</code> image.</p>
+<p><code>docker build -t codenameninja/posts .</code></p>
+<p>and then push to docker hub</p>
+<pre class="prettyprint source lang-bash"><code>docker push codenameninja/posts
+</code></pre>
+<p>We should see an output like this:</p>
+<pre class="prettyprint source lang-bash"><code>Using default tag: latest
+The push refers to repository [docker.io/codenameninja/posts]
+5d73725f6bbc: Pushed
+a04ae7f38073: Pushed
+1867b73ccc92: Pushed
+b183e8dc895f: Pushed
+49281578ca1a: Mounted from library/node
+c833154f20e9: Mounted from library/node
+5be440dc5019: Mounted from library/node
+8d3ac3489996: Mounted from library/node
+latest: digest: sha256:774805eb544c76205c63fdd3e13883e53983df5972d990b336cc87245b7068fa size: 1992
+
+</code></pre>
+<p>Okay now our latest version is in Docker Hub.</p>
+<p>Now we want to tell our deployment to use that latest version.</p>
+<pre class="prettyprint source lang-bash"><code>
+k get deployments
+
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE    
+posts-depl   1/1     1            1           164m   
+
+
+k rollout restart deployment posts-depl
+
+> deployment.apps/posts-depl restarted
+
+
+</code></pre>
+<p>Now let's Verify</p>
+<pre class="prettyprint source lang-bash"><code>k get pods
+
+NAME                          READY   STATUS    RESTARTS   AGE
+posts-depl-5f6cf6df9b-rbnfq   1/1     Running   0          57s
+
+k logs posts-depl-5f6cf6df9b-rbnfq
+
+> posts@1.0.0 start
+> nodemon index.js
+
+[nodemon] 2.0.15
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node index.js`
+v.0.2.5
+Listening on 4000
+</code></pre>
+<p>And there you go, we can see our changes</p>
+</article>
+
+</section>
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-routers__id_comments.html">routers/:id/comments</a></li><li><a href="module-routers_posts.html">routers/posts</a></li><li><a href="module-routers_query.html">routers/query</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routers__id_comments-CommentApiRequest.html">CommentApiRequest</a></li><li><a href="module-routers_posts-PostApiRequests.html">PostApiRequests</a></li><li><a href="module-routers_query-QueryApiRequest.html">QueryApiRequest</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-index-docker.html">Docker</a></li><li><a href="tutorial-index-kubernetes.html">Kubernetes</a></li><li><a href="tutorial-index_.html">A Mini Microservice App</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Feb 17 2022 14:07:18 GMT+0200 (South Africa Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

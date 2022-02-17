@@ -90,5 +90,6 @@ app.post("/events", (req, res) => {
   res.send({})
 })
 app.listen(4000, () => {
+  console.log("v.0.2.5");
   console.log("Listening on 4000");
 });
