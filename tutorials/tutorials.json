@@ -22,7 +22,7 @@
       }
     }
   },
-  "index-docker":{
+  "index-docker": {
     "title": "Docker",
     "children": {
       "DockerSetup": {
@@ -33,7 +33,7 @@
       }
     }
   },
-  "index-kubernetes":{
+  "index-kubernetes": {
     "title": "Kubernetes",
     "children": {
       "KubernetesTour": {
@@ -41,6 +41,9 @@
       },
       "CreatingAPod": {
         "title": "Creating a Pod"
+      },
+      "AssigningAnAlias": {
+        "title": "Assigning an Alias"
       }
     }
   }

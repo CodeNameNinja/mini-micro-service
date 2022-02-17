@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: Kubernetes</title>
+    <title>JSDoc: Tutorial: Assigning an Alias</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,26 +17,31 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: Kubernetes</h1>
+    <h1 class="page-title">Tutorial: Assigning an Alias</h1>
 
     <section>
 
 <header>
     
-    <ul>
-        <li><a href="tutorial-KubernetesTour.html">Kubernetes Tour</a></li>
-    
-        <li><a href="tutorial-CreatingAPod.html">Creating a Pod</a></li>
-    
-        <li><a href="tutorial-AssigningAnAlias.html">Assigning an Alias</a></li>
-    </ul>
-    
 
-    <h2>Kubernetes</h2>
+    <h2>Assigning an Alias</h2>
 </header>
 
 <article>
-    
+    <h3>Create alias.cmd</h3>
+<p>to get started create an <code>alias.cmd</code> in this folder <code>C:\Program Files\k8s</code></p>
+<p>in <code>alias.cmd</code> add the following content:</p>
+<pre class="prettyprint source lang-bash"><code>@echo off
+doskey k=kubectl $*
+
+</code></pre>
+<p>then open <code>regedit</code> if you are on windows.</p>
+<p>and add a <code>String</code> registry file in</p>
+<pre class="prettyprint source"><code>[HKEY_CURRENT_USER\Software\Microsoft\Command Processor]
+c:\\\&quot;Program Files\&quot;\\k8s\\alias.cmd
+
+</code></pre>
+<p>and save the file as <code>AutoRun</code></p>
 </article>
 
 </section>
