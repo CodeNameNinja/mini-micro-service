@@ -38,6 +38,9 @@
     "children": {
       "KubernetesTour": {
         "title": "Kubernetes Tour"
+      },
+      "CreatingAPod": {
+        "title": "Creating a Pod"
       }
     }
   }

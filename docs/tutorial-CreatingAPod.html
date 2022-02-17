@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: Comment Service</title>
+    <title>JSDoc: Tutorial: Creating a Pod</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,36 +17,43 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: Comment Service</h1>
+    <h1 class="page-title">Tutorial: Creating a Pod</h1>
 
     <section>
 
 <header>
     
 
-    <h2>Comment Service</h2>
+    <h2>Creating a Pod</h2>
 </header>
 
 <article>
-    <p><img src="../../doc_assets/screenshots/project-setup/comment_service.png" alt="comments Service"></p>
-<p>I think that we're going to have two different route handlers.
-Once again, we're going to have one handler that's going to allow us to create a new comment that is
-associated with some very particular post.</p>
-<p>So you'll notice that inside the path right here, we're going to make a request to post slash and then
-the idea of the post that we're going to associate this comment with.</p>
-<p>When we make a post request, we're going to have a body that has a content that is some string, so
-content is going to be the actual text of the content itself.</p>
-<p>We're then going to have a second router handler that's going to give us all of the different comments
-that are associated with some very particular post ID.</p>
-<p>So make a get request to that route that will give us all the comments associated with some given post id, it's a pretty straightforward, but we are going to have just a little bit more complexity on
-the service.</p>
-<p><em>commentsByPostId Data Structure</em>
-<br />
-<img src="../../doc_assets/screenshots/project-setup/commentsByPostId.png" alt="Comments By Post Id">;</p>
-<h4>Create a Comment</h4>
-<p><img src="../../doc_assets/screenshots/project-setup/POST_comment.png" alt="Create comment"></p>
-<h4>Fetch comments by PostID</h4>
-<p><img src="../../doc_assets/screenshots/project-setup/GET_comment.png" alt="Fetch comments by PostID"></p>
+    <h2>Add Config file to Image</h2>
+<p>To get started we need to rebuild our docker image in our posts directory, but this time we are going to tell the image identify the configuration file.</p>
+<pre class="prettyprint source lang-bash"><code>
+docker build -t codenameninja/posts:0.0.1 .
+
+</code></pre>
+<p>Now let's create a new directory in the root of our project called <code>infra</code> and inside that folder we are going to create another folder called <code>k8s</code> and inside that folder we are going to create a file called <code>posts.yaml</code></p>
+<p><img src="../../doc_assets/screenshots/Docker/infra.png" alt="infra"></p>
+<p>now let's write out our config</p>
+<pre class="prettyprint source lang-yml"><code>apiVersion: v1
+kind: Pod
+metadata:
+  name: posts-api
+spec:
+  containers:
+  - name: posts-api
+    image: codenameninja/posts:0.0.1
+
+</code></pre>
+<p><img src="../../doc_assets/screenshots/Docker/pod-config.png" alt="pod-config"></p>
+<p>now let's navigate to our <code>posts.yml</code> file in our terminal aand run it with</p>
+<p><code>kubectl apply -f posts.yml</code></p>
+<p><img src="../../doc_assets/screenshots/Docker/pods-created.png" alt="pods-created"></p>
+<hr>
+<h3>Kubectl commands to interact with pods</h3>
+<p><img src="../../doc_assets/screenshots/Docker/kubectl-commands.png" alt="kubectl-commands"></p>
 </article>
 
 </section>
