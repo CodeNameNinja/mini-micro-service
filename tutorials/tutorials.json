@@ -56,6 +56,12 @@
       },
       "HowToCreateANodeService": {
         "title": "How to Create a Node Service"
+      },
+      "AccessingANodeService": {
+        "title": "Accessing A NodeService"
+      },
+      "HowToCreateACluterIP": {
+        "title": "How to Create a Cluster IP"
       }
     }
   }
