@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Tutorial: How to Create a Node Service</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Tutorial: How to Create a Node Service</h1>
+
+    <section>
+
+<header>
+    
+
+    <h2>How to Create a Node Service</h2>
+</header>
+
+<article>
+    <h3>Configuration</h3>
+<p>Services, Deployments, Pods are all <strong>Objects</strong> in Kubernetes, everytime we need to create or modify an Object, we need to create or update a <strong>config</strong> file</p>
+<p>So let's start by creating a config file for our Node Service.</p>
+<p><img src="../../doc_assets/screenshots/Docker/posts-srv.png" alt="posts-srv"></p>
+<pre class="prettyprint source lang-yml"><code>apiVersion: v1
+kind: Service
+metadata:
+  name: posts-srv
+  labels:
+    app: posts-srv
+spec:
+  type: NodePort
+  selector:
+    app: posts
+  ports:  # List of ports to be exposed
+    - name: posts 
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
+</code></pre>
+<p>let's take a look at the ports section where we list out all the different ports that we want to expose on a target pod.</p>
+<p>Well, let me give you a quick reminder on the Post Service really quickly, or our Post application inside of our post application directory.</p>
+<p>I'm going to open up the index file.</p>
+<p>At the very bottom, you'll recall that we had said, listen, on port *<em>4000</em>.</p>
+<p>So our application application is listening for traffic on port <strong>4000</strong></p>
+<p>Inside of our service, we need to make sure that we specifically expose Port 4000 on our part.</p>
+<p>So that's what this ports section is all about.</p>
+<p>We're going to list out all the different ports that we want to expose on the port.</p>
+<p>We specify a protocal of <strong>TCP</strong></p>
+<p>A <strong>port of 4000</strong> and a <strong>target port of 4000</strong>.</p>
+<p>I got some bad news, these poor properties right here are pretty darn confusing, I'm not going to lie to you.</p>
+<p>So what are these all about?</p>
+<p>Well, again, if we think about our post application, it is listening for traffic on Port 4000.</p>
+<p>So this 4000 right here is essentially saying we want to open up access on port for thousands.</p>
+<p>But real quick question.</p>
+<p>Why are we listing this out twice?</p>
+<p>What is the difference between port and target ports?</p>
+<p>Let me show you a diagram.</p>
+<p>I'm going to tell you right away.</p>
+<p>This diagram is probably going to make things a little bit more confusing.</p>
+<p><img src="../../doc_assets/screenshots/Docker/post-targetPort.png" alt="port-targetPort"></p>
+<p>These objects on the left hand side is our browser.</p>
+<p>On a far right hand side is the actual pod that is running our post container now on that container,</p>
+<p>we've got some application that is listing for traffic on port 4000.</p>
+<p>We refer to that port that is attached to the container.</p>
+<p>So the ultimate port that we want to direct traffic to as the target ports.</p>
+<p>So target port back over here.</p>
+<p>This is the actual port that our application is listening for traffic on.</p>
+<p>That's where we ultimately want to send traffic to.</p>
+<p>We are creating a node port service the node port service is going to have a port of its own, so that is referred to as simply at the port and that is what this property is right here.</p>
+<p>So we are sending traffic to Port 4000 on a node port service, and that service internally is going to redirect that traffic over to Port 4000 on the container itself.</p>
+<p>The port and the target port do not have to be identical, so this could be 5000 on the port.</p>
+<p>And if we make a request to Port 5000 on the node port service, the service will redirect</p>
+<p>that traffic to Port 4000 on the container.</p>
+</article>
+
+</section>
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-routers__id_comments.html">routers/:id/comments</a></li><li><a href="module-routers_posts.html">routers/posts</a></li><li><a href="module-routers_query.html">routers/query</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routers__id_comments-CommentApiRequest.html">CommentApiRequest</a></li><li><a href="module-routers_posts-PostApiRequests.html">PostApiRequests</a></li><li><a href="module-routers_query-QueryApiRequest.html">QueryApiRequest</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-index-docker.html">Docker</a></li><li><a href="tutorial-index-kubernetes.html">Kubernetes</a></li><li><a href="tutorial-index_.html">A Mini Microservice App</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Feb 18 2022 10:08:10 GMT+0200 (South Africa Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

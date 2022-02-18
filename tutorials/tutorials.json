@@ -53,6 +53,9 @@
       },
       "Services": {
         "title": "Services"
+      },
+      "HowToCreateANodeService": {
+        "title": "How to Create a Node Service"
       }
     }
   }
