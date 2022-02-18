@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: Project Setup</title>
+    <title>JSDoc: Tutorial: Services</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,41 +17,29 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: Project Setup</h1>
+    <h1 class="page-title">Tutorial: Services</h1>
 
     <section>
 
 <header>
     
 
-    <h2>Project Setup</h2>
+    <h2>Services</h2>
 </header>
 
 <article>
-    <p><img src="../../doc_assets/screenshots/project-setup/06.png" alt="Project setup"></p>
-<h3>Create Client</h3>
-<p>Create a Directory called <code>Blog</code> and inside it create a react-app with <code>create-react-app</code> and call it <code>client</code>.
-<br /></p>
-<pre class="prettyprint source lang-bash"><code>mkdir blog
-cd blog
-npx create-react-app client
-</code></pre>
-<h3>Create Post Service</h3>
-<p>and then also make a <code>post</code> service in the <code>blog</code> directory.
-<br /></p>
-<pre class="prettyprint source lang-bash"><code>cd..
-mkdir posts
-cd posts
-npm init -y
-npm i express cors axios nodemon
-</code></pre>
-<h3>Create Comment Service</h3>
-<pre class="prettyprint source lang-bash"><code>cd..
-mkdir comments
-cd comments
-npm init -y
-npm i express cors axios nodemon
-</code></pre>
+    <h3>What do they do?</h3>
+<p><img src="../../doc_assets/screenshots/Docker/service-purpose.md.png" alt="service-purpose"></p>
+<h3>Different Types Of services</h3>
+<p><img src="../../doc_assets/screenshots/Docker/service-types.png" alt="service-types"></p>
+<p><strong>Cluser IP</strong> services are used any time that we want to set up communication between different pods inside
+of our cluster.</p>
+<p><strong>Node ports</strong> are used any time they want to access a pod from outside of our cluster, but we only usually
+only use a node port for development purposes.</p>
+<p><strong>Load balancers</strong> are the right way to access a pod from outside the cluster, so you can think of a Node Port and load balancer as being very similar, but the way that they actually work are very different.</p>
+<p>And I'll be sure to tell you exactly how they're different over time.</p>
+<p>So Node Port and load balancer are both going to expose a port to the outside world or expose a pod to the outside world.</p>
+<p>And then finally, <strong>External name</strong> services finally put it in this diagram so that you are aware that this exists and it is another type of service, but it's not something that we are going to use.</p>
 </article>
 
 </section>

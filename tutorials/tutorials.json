@@ -50,6 +50,9 @@
       },
       "UpdatingDeployments": {
         "title": "Updating Deployments"
+      },
+      "Services": {
+        "title": "Services"
       }
     }
   }
