@@ -106,3 +106,7 @@ skaffold dev
 ```
 
 > if you get any errors, try running it again.
+
+if you want to clean up after you exit skaffold command. use this.
+
+> `skaffold delete`
