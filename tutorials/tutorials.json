@@ -19,7 +19,7 @@
       },
       "AsyncCommunication": {
         "title": "Async Communication"
-      }
+      }      
     }
   },
   "index-docker": {
@@ -62,6 +62,9 @@
       },
       "HowToCreateACluterIP": {
         "title": "How to Create a Cluster IP"
+      },
+      "CommunicationBetweenClusterIPs": {
+        "title": "Communication Between Cluster IPs"
       }
     }
   }
