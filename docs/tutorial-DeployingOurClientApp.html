@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: Deployments</title>
+    <title>JSDoc: Tutorial: Deploying Our Client App</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,39 +17,83 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: Deployments</h1>
+    <h1 class="page-title">Tutorial: Deploying Our Client App</h1>
 
     <section>
 
 <header>
     
 
-    <h2>Deployments</h2>
+    <h2>Deploying Our Client App</h2>
 </header>
 
 <article>
-    <p>Firstly we want to remove our <code>posts.yml</code> file and start fresh with a new file called <code>posts-depl.yml</code></p>
-<p>and in this config we are going to configure deployment, and in this config we are going to spec how many pods we want to run and point it to our posts image</p>
+    <h3>Changes!</h3>
+<p>Due to an issue in <code>create-react-app</code> we can't use our DockerFile as is, please update the DockerFile with the following:</p>
+<pre class="prettyprint source lang-DockerFile"><code>FROM node:alpine
+
+# Add the following line
+ENV CI=true
+
+WORKDIR /app
+COPY package.json ./
+RUN npm install
+COPY ./ ./
+
+CMD [&quot;npm&quot;, &quot;start&quot;]
+</code></pre>
+<p>Firstly we are going to want to update our client application, so that all our api endpoints that are point to localhost, are changed from <code>localhost</code> to <code>posts.com</code>.</p>
+<blockquote>
+<p>later we will configure routing rules, to determine which api request goes where.</p>
+</blockquote>
+<p>once done with all that, we are going to rebuild our image for the clients app.</p>
+<pre class="prettyprint source lang-bash"><code>cd clients
+docker build -t codenameninja/clients .
+docker push codenameninja/clients
+</code></pre>
+<p>once that has been pushed, we are going to create another deployment with a ClusterIP service</p>
+<blockquote>
+<p>client-depl.yml</p>
+</blockquote>
 <pre class="prettyprint source lang-yml"><code>apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: posts-depl
+  name: client-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: posts
+      app: client
   template:
     metadata:
       labels:
-        app: posts
+        app: client
     spec:
       containers:
-      - name: posts
-        image: codenameninja/posts:0.0.1
+        - name: client
+          image: codenameninja/client
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+  labels:
+    app: client-srv
+spec:
+  type: ClusterIP #Optional
+  selector:
+    app: client
+  ports: # List of ports to be exposed
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
 </code></pre>
-<h3>Kubernetes Deployment Commands</h3>
-<p><img src="../../doc_assets/screenshots/Docker/kubectl-deployments.png" alt="kubectl-deployment"></p>
+<p>and then apply our deployment and service</p>
+<pre class="prettyprint source lang-bash"><code>> k apply -f client-depl.yml
+deployment.apps/client-depl created
+service/client-srv created
+</code></pre>
 </article>
 
 </section>

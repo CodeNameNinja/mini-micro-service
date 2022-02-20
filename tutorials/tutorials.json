@@ -74,6 +74,9 @@
       },
       "CreatingAnIngressConfig": {
         "title": "Creating an Ingress Config"
+      },
+      "DeployingOurClientApp": {
+        "title": "Deploying Our Client App"
       }
     }
   }
