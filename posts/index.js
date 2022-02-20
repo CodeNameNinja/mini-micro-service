@@ -44,28 +44,17 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const posts = {};
-/**
- * Route fetching posts.
- * @name get/posts
- * @function
- * @memberof module:routers/posts~PostApiRequests
- * @inner
- * @param {string} path - Express path
- * @param {callback} middleware - Express middleware.
- */
-app.get("/posts", (req, res) => {
-  res.send(posts);
-});
+
 /**
  * Route posting posts.
- * @name post/posts
+ * @name post/posts/create
  * @function
  * @memberof module:routers/posts~PostApiRequests
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
  */
-app.post("/posts", async (req, res) => {
+app.post("/posts/create", async (req, res) => {
   // Generate random id
   const id = randomBytes(4).toString("hex");
   // Create post object

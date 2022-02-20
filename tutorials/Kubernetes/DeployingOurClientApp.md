@@ -24,8 +24,8 @@ once done with all that, we are going to rebuild our image for the clients app.
 
 ```bash
 cd clients
-docker build -t codenameninja/clients .
-docker push codenameninja/clients
+docker build -t codenameninja/client .
+docker push codenameninja/client
 ```
 
 once that has been pushed, we are going to create another deployment with a ClusterIP service
