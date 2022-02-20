@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Tutorial: How to Create a Cluster IP</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Tutorial: How to Create a Cluster IP</h1>
+
+    <section>
+
+<header>
+    
+
+    <h2>How to Create a Cluster IP</h2>
+</header>
+
+<article>
+    <p>Remember that the goal of a cluster IP service is to expose a pod to other pods inside the cluster.</p>
+<p>To better explore a cluster IP, I want to give you a quick reminder on how parts of our application</p>
+<p>are working right now, but present we've got that post project.</p>
+<p>Any time someone tries to create a post, we are sending a request over to the event bus and the event</p>
+<p>bus hopefully is going to emit that event or kind of broadcast that event to everything else inside of app, including back over to post.</p>
+<p>So let's try to create a new pod that is going to run event bus, we're then going to set up some services</p>
+<p>to allow posts and event bus to communicate with each other.</p>
+<p>Let me show you a diagram to help you understand what we're really going to do here.</p>
+<p><img src="../../doc_assets/screenshots/Docker/posts-to-event-bus.png" alt="posts-to-event-bus"></p>
+<h3>Goals Moving Forward</h3>
+<p><img src="../../doc_assets/screenshots/Docker/Goals-Moving-Forward.png" alt="Goals-Moving-Forward"></p>
+<h3>Getting Started</h3>
+<p>Let's start by creating a new image for the event bus</p>
+<pre class="prettyprint source lang-bash"><code>cd /event-bus
+docker build -t codenameninja/event-bus .
+</code></pre>
+<p>Great, now let's push our newly created image to <code>Docker Hub</code></p>
+<pre class="prettyprint source lang-bash"><code>> docker push codenameninja/event-bus
+
+Using default tag: latest
+The push refers to repository [docker.io/codenameninja/event-bus]
+f350d9d2402f: Pushed
+14c350038b69: Pushed
+41d2e3a5d3c9: Pushed
+b183e8dc895f: Mounted from codenameninja/posts
+49281578ca1a: Mounted from codenameninja/posts
+c833154f20e9: Mounted from codenameninja/posts
+5be440dc5019: Mounted from codenameninja/posts
+8d3ac3489996: Mounted from codenameninja/posts
+latest: digest: sha256:181bef3fdb5380c5fa7ff3bae6157b4387b43bb2f362b61ff4a4d3cc6db01f51 size: 1992
+
+</code></pre>
+<p>Now let's create a Deployment script for our <code>event-bus</code> image.</p>
+<p>Create a file in /infra/k8s/event-bus-depl.yml</p>
+<p>and inside, we are going to copy and paste our <code>posts-depl.yml</code> file and paste it in this file and change what needs to be changed to point to event-bus</p>
+<pre class="prettyprint source lang-yml"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-bus-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event-bus
+  template:
+    metadata:
+      labels:
+        app: event-bus
+    spec:
+      containers:
+        - name: event-bus
+          image: codenameninja/event-bus
+</code></pre>
+<p>Now we can apply our deployment with <code>kubectl</code></p>
+<pre class="prettyprint source lang-bash"><code>cd /infra/k8s
+> kubectl apply -f event-bus-depl.yml
+deployment.apps/event-bus-depl created
+
+</code></pre>
+<p>if we list our pods, we should see our event-bus</p>
+<pre class="prettyprint source lang-bash"><code>> k get pods
+NAME                            READY   STATUS    RESTARTS   AGE  
+event-bus-depl-865d5f6d-n86dd   1/1     Running   0          46s  
+posts-depl-5f6cf6df9b-rbnfq     1/1     Running   2          2d21h
+</code></pre>
+<hr>
+<h3>Adding CluserIP Service</h3>
+<p>So in our <code>event-bus-deply.yml</code> we are going to add our cluser IP service to our deployment.</p>
+<p>at the bottom of the deployment config we are going to add</p>
+<pre class="prettyprint source lang-yml"><code>---
+
+</code></pre>
+<p>so we can add multiple configs.</p>
+<p>The configuration that we are going to write out, is going to look alot like the <code>posts-srv.yml</code> file.</p>
+<pre class="prettyprint source lang-yml"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-bus-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event-bus
+  template:
+    metadata:
+      labels:
+        app: event-bus
+    spec:
+      containers:
+      - name: event-bus
+        image: codenameninja/event-bus
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-bus-srv
+  labels:
+    app: event-bus-srv
+spec:
+  type: ClusterIP #Optional
+  selector:
+    app: event-bus
+  ports:  # List of ports to be exposed
+    - name: event-bus 
+      protocol: TCP
+      port: 4005
+      targetPort: 4005
+</code></pre>
+<p>now once we are done with that, we can try applying our config file again to update our deployment.</p>
+<pre class="prettyprint source lang-bash"><code>
+> kubectl apply -f event-bus-depl.yml
+deployment.apps/event-bus-depl unchanged
+service/event-bus-srv created
+</code></pre>
+<pre class="prettyprint source lang-bash"><code>> k get services
+NAME            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+event-bus-srv   ClusterIP   10.104.110.16    &lt;none>        4005/TCP         63s
+kubernetes      ClusterIP   10.96.0.1        &lt;none>        443/TCP          3d19h
+posts-srv       NodePort    10.111.116.230   &lt;none>        4000:30290/TCP   2d1h
+
+</code></pre>
+<p><strong>Repeat the process for our posts deployment</strong></p>
+<pre class="prettyprint source lang-yml"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posts
+  template:
+    metadata:
+      labels:
+        app: posts
+    spec:
+      containers:
+      - name: posts
+        image: codenameninja/posts
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-clusterip-srv
+  labels:
+    app: posts-clusterip-srv
+spec:
+  type: ClusterIP #Optional
+  selector:
+    app: posts
+  ports:  # List of ports to be exposed
+    - name: posts 
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
+</code></pre>
+<pre class="prettyprint source lang-bash"><code>> k apply -f posts-depl.yml                        
+deployment.apps/posts-depl unchanged
+service/posts-clusterip-srv created
+
+> k get services
+NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+event-bus-srv         ClusterIP   10.104.110.16    &lt;none>        4005/TCP         5m31s
+kubernetes            ClusterIP   10.96.0.1        &lt;none>        443/TCP          3d19h
+posts-clusterip-srv   ClusterIP   10.96.8.248      &lt;none>        4000/TCP         16s
+posts-srv             NodePort    10.111.116.230   &lt;none>        4000:30290/TCP   2d1h
+</code></pre>
+</article>
+
+</section>
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-routers__id_comments.html">routers/:id/comments</a></li><li><a href="module-routers_posts.html">routers/posts</a></li><li><a href="module-routers_query.html">routers/query</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routers__id_comments-CommentApiRequest.html">CommentApiRequest</a></li><li><a href="module-routers_posts-PostApiRequests.html">PostApiRequests</a></li><li><a href="module-routers_query-QueryApiRequest.html">QueryApiRequest</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-index-docker.html">Docker</a></li><li><a href="tutorial-index-kubernetes.html">Kubernetes</a></li><li><a href="tutorial-index_.html">A Mini Microservice App</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Feb 20 2022 13:39:04 GMT+0200 (South Africa Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
