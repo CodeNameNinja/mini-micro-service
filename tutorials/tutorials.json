@@ -65,6 +65,9 @@
       },
       "CommunicationBetweenClusterIPs": {
         "title": "Communication Between Cluster IPs"
+      },
+      "AddingQueryModerationAndComment": {
+        "title": "Adding Query, Moderation and Comment"
       }
     }
   }
