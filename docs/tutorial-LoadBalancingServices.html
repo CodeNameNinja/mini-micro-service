@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: Deployments</title>
+    <title>JSDoc: Tutorial: Load Balancing Services</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,39 +17,23 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: Deployments</h1>
+    <h1 class="page-title">Tutorial: Load Balancing Services</h1>
 
     <section>
 
 <header>
     
 
-    <h2>Deployments</h2>
+    <h2>Load Balancing Services</h2>
 </header>
 
 <article>
-    <p>Firstly we want to remove our <code>posts.yml</code> file and start fresh with a new file called <code>posts-depl.yml</code></p>
-<p>and in this config we are going to configure deployment, and in this config we are going to spec how many pods we want to run and point it to our posts image</p>
-<pre class="prettyprint source lang-yml"><code>apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: posts-depl
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: posts
-  template:
-    metadata:
-      labels:
-        app: posts
-    spec:
-      containers:
-      - name: posts
-        image: codenameninja/posts:0.0.1
-</code></pre>
-<h3>Kubernetes Deployment Commands</h3>
-<p><img src="../../doc_assets/screenshots/Docker/kubectl-deployments.png" alt="kubectl-deployment"></p>
+    <h3>Using a Load Balancer Service</h3>
+<p><img src="../../doc_assets/screenshots/Docker/load-balancer-service.png" alt="load-balancer-service"></p>
+<h3>Terminology</h3>
+<p><img src="../../doc_assets/screenshots/Docker/load-balancer-terminology.png" alt="load-balancer-terminology"></p>
+<h3>Ingress Controller</h3>
+<p><img src="../../doc_assets/screenshots/Docker/ingress-controller.png" alt="ingress-controller"></p>
 </article>
 
 </section>

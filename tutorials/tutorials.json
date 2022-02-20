@@ -68,6 +68,12 @@
       },
       "AddingQueryModerationAndComment": {
         "title": "Adding Query, Moderation and Comment"
+      },
+      "LoadBalancingServices": {
+        "title": "Load Balancing Services"
+      },
+      "CreatingAnIngressConfig": {
+        "title": "Creating an Ingress Config"
       }
     }
   }
