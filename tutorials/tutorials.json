@@ -80,6 +80,9 @@
       },
       "RoutingRules": {
         "title": "Routing Rules"
+      },
+      "Skaffold": {
+        "title": "Skaffold"
       }
     }
   }
