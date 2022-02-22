@@ -44,7 +44,7 @@ ingress.networking.k8s.io/ingress-srv created
 > How to check if something is blocking port 80
 > `netstat -aon | findstr :80`
 
-![host-file-location](../../doc_assets/screenshots/Docker/host-file-location.png)
+![host-file-location](/doc_assets/screenshots/Docker/host-file-location.png)
 
 ```bash
 cd C:\Windows\System32\drivers\etc>
@@ -59,4 +59,4 @@ at the end of the file. at the following at the end of the file.
 
 Then in your browser, navigate to the followng, and you should see our posts object, from when we made a post previously.
 
-![posts.com](../../doc_assets/screenshots/Docker/posts.com.png)
+![posts.com](/doc_assets/screenshots/Docker/posts.com.png)

@@ -14,11 +14,11 @@ to allow posts and event bus to communicate with each other.
 
 Let me show you a diagram to help you understand what we're really going to do here.
 
-![posts-to-event-bus](../../doc_assets/screenshots/Docker/posts-to-event-bus.png)
+![posts-to-event-bus](/doc_assets/screenshots/Docker/posts-to-event-bus.png)
 
 ### Goals Moving Forward
 
-![Goals-Moving-Forward](../../doc_assets/screenshots/Docker/Goals-Moving-Forward.png)
+![Goals-Moving-Forward](/doc_assets/screenshots/Docker/Goals-Moving-Forward.png)
 
 ### Getting Started
 

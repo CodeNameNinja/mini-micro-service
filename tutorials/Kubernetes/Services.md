@@ -1,10 +1,10 @@
 ### What do they do?
 
-![service-purpose](../../doc_assets/screenshots/Docker/service-purpose.md.png)
+![service-purpose](/doc_assets/screenshots/Docker/service-purpose.md.png)
 
 ### Different Types Of services
 
-![service-types](../../doc_assets/screenshots/Docker/service-types.png)
+![service-types](/doc_assets/screenshots/Docker/service-types.png)
 
 **Cluser IP** services are used any time that we want to set up communication between different pods inside
 of our cluster.

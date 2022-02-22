@@ -1,6 +1,6 @@
 ## Commands
 
-![Commands](../../doc_assets/screenshots/Docker/commands.png)
+![Commands](/doc_assets/screenshots/Docker/commands.png)
 
 so let's go back to our posts directory and rebuild our image with a new name.
 
@@ -22,7 +22,7 @@ see a list of running docker containers
 ```bash
 docker ps
 ```
-![docker ps](../../doc_assets/screenshots/Docker/dockerps.png)
+![docker ps](/doc_assets/screenshots/Docker/dockerps.png)
 
 How to execute a shell in a running container 
 

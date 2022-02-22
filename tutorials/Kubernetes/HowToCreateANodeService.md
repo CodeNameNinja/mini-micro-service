@@ -4,7 +4,7 @@ Services, Deployments, Pods are all **Objects** in Kubernetes, everytime we need
 
 So let's start by creating a config file for our Node Service.
 
-![posts-srv](../../doc_assets/screenshots/Docker/posts-srv.png)
+![posts-srv](/doc_assets/screenshots/Docker/posts-srv.png)
 
 ```yml
 apiVersion: v1
@@ -64,7 +64,7 @@ I'm going to tell you right away.
 
 This diagram is probably going to make things a little bit more confusing.
 
-![port-targetPort](../../doc_assets/screenshots/Docker/post-targetPort.png)
+![port-targetPort](/doc_assets/screenshots/Docker/post-targetPort.png)
 
 These objects on the left hand side is our browser.
 

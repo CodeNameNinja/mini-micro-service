@@ -1,6 +1,6 @@
 How we are going to make a request to the event bus using the name of our cluster IP
 
-![request-to-event-bus](../../doc_assets/screenshots/Docker/request-to-event-bus.png)
+![request-to-event-bus](/doc_assets/screenshots/Docker/request-to-event-bus.png)
 
 The next thing we want to do, is update our Posts service to point to our event bus, rather than localhost 
 
@@ -49,7 +49,7 @@ if you don't know, use `kubectl get services` and find the NodePort Service.
 
 then make a post request to `http://localhost:30290/posts`
 
-![posts-request-to-nodeport](../../doc_assets/screenshots/Docker/posts-request-to-nodeport.png)
+![posts-request-to-nodeport](/doc_assets/screenshots/Docker/posts-request-to-nodeport.png)
 
 let's verify that we recieved the request in our Posts Pod, by viewing the logs with Kubectl.
 

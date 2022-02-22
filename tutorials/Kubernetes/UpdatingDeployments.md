@@ -1,4 +1,4 @@
-![updating-deployments](../../doc_assets/screenshots/Docker/updating-deployments.png)
+![updating-deployments](/doc_assets/screenshots/Docker/updating-deployments.png)
 
 Firstly let's start by making a change to our `Posts` Application. This
 
@@ -46,7 +46,7 @@ notice how it says _configured_ instead of _created_
 
 ## Preferred Method of Updating Deployments
 
-![updating-deployments-2](../../doc_assets/screenshots/Docker/updating-deployments-2.png)
+![updating-deployments-2](/doc_assets/screenshots/Docker/updating-deployments-2.png)
 
 let's change our config file again, but this time remove the tag number, and instead use the `latest` tag, or we can just not specify a tag and Kubernetes will automatically assume we are using the latest version of the image.
 

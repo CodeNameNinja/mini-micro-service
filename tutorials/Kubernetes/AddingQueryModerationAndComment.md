@@ -1,4 +1,4 @@
-![adding-more-services](../../doc_assets/screenshots/Docker/adding-more-services.png)
+![adding-more-services](/doc_assets/screenshots/Docker/adding-more-services.png)
 
 Firstly we want to go through each of our services, and update all the API requests to event bus, and update localhost to `event-bus-srv`
 

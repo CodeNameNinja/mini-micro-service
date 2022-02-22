@@ -186,7 +186,7 @@ export default App;
 
 #### Finish App
 
-![Finish React App](../../doc_assets/screenshots/project-setup/finishReactApp.png)
+![Finish React App](/doc_assets/screenshots/project-setup/finishReactApp.png)
 
 Notice how we send a seperate request for each comment that we have stored. 
 

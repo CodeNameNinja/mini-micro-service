@@ -1,4 +1,4 @@
-![skaffold](../../doc_assets/screenshots/Docker/skaffold.png)
+![skaffold](/doc_assets/screenshots/Docker/skaffold.png)
 
 installing **Skaffold**
 

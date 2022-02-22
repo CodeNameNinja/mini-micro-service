@@ -24,4 +24,4 @@ spec:
 
 ### Kubernetes Deployment Commands
 
-![kubectl-deployment](../../doc_assets/screenshots/Docker/kubectl-deployments.png)
+![kubectl-deployment](/doc_assets/screenshots/Docker/kubectl-deployments.png)

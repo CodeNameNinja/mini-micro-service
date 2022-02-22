@@ -1,4 +1,4 @@
-![Project setup](../../doc_assets/screenshots/project-setup/06.png)
+![Project setup](/doc_assets/screenshots/project-setup/06.png)
 
 ### Create Client
 Create a Directory called `Blog` and inside it create a react-app with `create-react-app` and call it `client`.

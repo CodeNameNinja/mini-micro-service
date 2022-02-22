@@ -1,6 +1,6 @@
 Here is a diagram of a list of routes that we need to service
 
-![routing-rule](../../doc_assets/screenshots/Docker/routing-rule.png)
+![routing-rule](/doc_assets/screenshots/Docker/routing-rule.png)
 
 One problem, the Ingress Controller, cannot handle requests based on **METHOD** but only on the **PATH**
 

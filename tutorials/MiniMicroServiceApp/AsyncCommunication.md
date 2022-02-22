@@ -1,10 +1,10 @@
 ### Issues with Sync Communication 
 
-![Sync Issues](../../doc_assets/screenshots/sync-comm/Sync-comm-problems.png)
+![Sync Issues](/doc_assets/screenshots/sync-comm/Sync-comm-problems.png)
 
 ### Async Concept
 
-![Async Concept](../../doc_assets/screenshots/sync-comm/Async-Concept.png)
+![Async Concept](/doc_assets/screenshots/sync-comm/Async-Concept.png)
 
 We are going to introduce the idea of a query service down here.
 The goal to query service is to listen to any time that a post is created or a comment is created.

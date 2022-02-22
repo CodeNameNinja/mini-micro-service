@@ -1,4 +1,4 @@
-![Post Service](../../doc_assets/screenshots/project-setup/post-service.png)
+![Post Service](/doc_assets/screenshots/project-setup/post-service.png)
 
 I think that we need to have a single route that's going to be in charge of retrieving all the different
 posts that have ever been created.
@@ -20,10 +20,10 @@ these two routes.
 ### Testing Posts Services
 
 #### Send A Post
-![Send A Post](../../doc_assets/screenshots/project-setup/POST_posts.png)
+![Send A Post](/doc_assets/screenshots/project-setup/POST_posts.png)
 
 #### Fetch posts
-![Fetch posts](../../doc_assets/screenshots/project-setup/GET_posts.png)
+![Fetch posts](/doc_assets/screenshots/project-setup/GET_posts.png)
 
 
 > ! take note these posts are not persistant and are stored in memory
